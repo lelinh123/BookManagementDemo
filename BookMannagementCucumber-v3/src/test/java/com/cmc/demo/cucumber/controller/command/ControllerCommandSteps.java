@@ -31,12 +31,12 @@ public class ControllerCommandSteps extends BasicSteps {
 
 
 
-  private final String BASIC_BOOK_REQUEST_URL = "http://localhost:8080/book/";
+  private final String BASIC_BOOK_REQUEST_URL = "http://localhost:8080/books/";
   private static Book sampleBook = new Book();
 
   @Given("^The client request POST book/create$")
   public void the_client_request_POST_book_create() throws Throwable {
-    System.out.println("Request post api: http://localhost:8080/book/ ");
+    System.out.println("Request post api: http://localhost:8080/books/ ");
   }
 
   @When("^book detail: uid: (\\d+), code: \"([^\"]*)\",name: \"([^\"]*)\", description: \"([^\"]*)\", category: \"([^\"]*)\",  author: \"([^\"]*)\", publisher: \"([^\"]*)\",  createUser: \"([^\"]*)\", createDate: \"([^\"]*)\", updateUser: \"([^\"]*)\", updateDate: \"([^\"]*)\"$")
@@ -69,8 +69,6 @@ public class ControllerCommandSteps extends BasicSteps {
     sampleBook.setUpdateDate(updateDate);
   }
 
-
-
   @Then("^The response return code (\\d+) and the new book exist in database$")
   public void the_response_return_code_and_the_new_book_exist_in_database(int codeStatusExpect)
       throws Throwable {
@@ -86,7 +84,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/create with id invalid$")
   public void the_client_request_POST_book_create_with_id_invalid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/ ");
+    System.out.println("Request post api: http://localhost:8080/books/ ");
   }
 
   @When("^create book with id invalid: uid: -(\\d+), code: \"([^\"]*)\",name: \"([^\"]*)\", description: \"([^\"]*)\", category: \"([^\"]*)\",  author: \"([^\"]*)\", publisher: \"([^\"]*)\",  createUser: \"([^\"]*)\", createDate: \"([^\"]*)\", updateUser: \"([^\"]*)\", updateDate: \"([^\"]*)\"$")
@@ -140,7 +138,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/create with id existed$")
   public void the_client_request_POST_book_create_with_id_existed() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/ ");
+    System.out.println("Request post api: http://localhost:8080/books/ ");
   }
 
   @When("^create book with id existed: uid: (\\d+), code: \"([^\"]*)\",name: \"([^\"]*)\", description: \"([^\"]*)\", category: \"([^\"]*)\",  author: \"([^\"]*)\", publisher: \"([^\"]*)\",  createUser: \"([^\"]*)\", createDate: \"([^\"]*)\", updateUser: \"([^\"]*)\", updateDate: \"([^\"]*)\"$")
@@ -194,7 +192,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/create with code was exist$")
   public void the_client_request_POST_book_create_with_code_was_exist() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/ ");
+    System.out.println("Request post api: http://localhost:8080/books/ ");
   }
 
   @When("^create book with code was exist : uid: (\\d+), code: \"([^\"]*)\",name: \"([^\"]*)\", description: \"([^\"]*)\", category: \"([^\"]*)\",  author: \"([^\"]*)\", publisher: \"([^\"]*)\",  createUser: \"([^\"]*)\", createDate: \"([^\"]*)\", updateUser: \"([^\"]*)\", updateDate: \"([^\"]*)\"$")
@@ -324,8 +322,8 @@ public class ControllerCommandSteps extends BasicSteps {
     sampleBook.setUid(uid);
     sampleBook.setCode(code);
     sampleBook.setName(name);
-    sampleBook.setCategory(author);
-    sampleBook.setDescription(category);
+    sampleBook.setCategory(category);
+    sampleBook.setDescription(description);
     sampleBook.setAuthor(author);
     sampleBook.setPublisher(publisher);
     sampleBook.setCreateUser(createUser);
@@ -353,7 +351,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/update valid$")
   public void the_client_request_POST_book_update_valid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/id/1");
+    System.out.println("Request post api: http://localhost:8080/books/update/id/1");
   }
 
   @When("^update book with uid: (\\d+), modify name: \"([^\"]*)\"$")
@@ -378,7 +376,7 @@ public class ControllerCommandSteps extends BasicSteps {
       int codeStatusExpect, int uid, String nameExpect) throws Throwable {
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> responseEntity =
-        restTemplate.exchange("http://localhost:8080/book/update/id/1", HttpMethod.PUT,
+        restTemplate.exchange("http://localhost:8080/books/update/id/1", HttpMethod.PUT,
             new HttpEntity<>(sampleBook), String.class, uid);
     assertEquals(codeStatusExpect, responseEntity.getStatusCodeValue());
     Book book = iBookQueryService.findById(1);
@@ -388,7 +386,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/update/id with id invalid$")
   public void the_client_request_POST_book_update_id_with_id_invalid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/id/-1 ");
+    System.out.println("Request post api: http://localhost:8080/books/update/id/-1 ");
   }
 
   @When("^update book with uid invalid: uid = -(\\d+)$")
@@ -408,7 +406,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/id/-1", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/id/-1", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, uid);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -420,7 +418,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/update/id with code invalid$")
   public void the_client_request_POST_book_update_id_with_code_invalid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/id/1 ");
+    System.out.println("Request post api: http://localhost:8080/books/update/id/1 ");
   }
 
   @When("^update book by id have code invalid: id = (\\d+), code = \"([^\"]*)\"$")
@@ -441,7 +439,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/id/1", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/id/1", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, 1);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -474,7 +472,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/id/1", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/id/1", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, 1);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -505,7 +503,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/id/656", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/id/656", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, 656);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -516,7 +514,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request POST book/update/code code valid$")
   public void the_client_request_POST_book_update_code_code_valid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/code/b001");
+    System.out.println("Request post api: http://localhost:8080/books/update/code/b001");
   }
 
   @When("^update book with code: \"([^\"]*)\", modify name: \"([^\"]*)\"$")
@@ -544,7 +542,7 @@ public class ControllerCommandSteps extends BasicSteps {
     String code = "b001";
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> responseEntity =
-        restTemplate.exchange("http://localhost:8080/book/update/code/b001", HttpMethod.PUT,
+        restTemplate.exchange("http://localhost:8080/books/update/code/b001", HttpMethod.PUT,
             new HttpEntity<>(sampleBook), String.class, code);
     assertEquals(codeStatusExpect, responseEntity.getStatusCodeValue());
     Book book = iBookQueryService.findByCode(code);
@@ -555,7 +553,7 @@ public class ControllerCommandSteps extends BasicSteps {
   public void the_client_request_POST_book_update_code_for_Update_book_by_code_invalid()
       throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/code/ ");
+    System.out.println("Request post api: http://localhost:8080/books/update/code/ ");
   }
 
   @When("^update book Update book by code is blank: code is blank$")
@@ -575,7 +573,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/code/%20%20", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/code/%20%20", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, " ");
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -609,7 +607,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/code/b001", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/code/b001", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, "b001");
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -621,7 +619,7 @@ public class ControllerCommandSteps extends BasicSteps {
   public void the_client_request_POST_book_update_code_for_update_code_not_exists()
       throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request post api: http://localhost:8080/book/update/code/656");
+    System.out.println("Request post api: http://localhost:8080/books/update/code/656");
   }
 
   @When("^update book by code not exists: code = \"([^\"]*)\"$")
@@ -640,7 +638,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/update/code/b001", HttpMethod.PUT,
+          restTemplate.exchange("http://localhost:8080/books/update/code/b001", HttpMethod.PUT,
               new HttpEntity<>(sampleBook), String.class, "b001");
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -651,7 +649,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request DELETE book/delete/id/(\\d+) for id valid$")
   public void the_client_request_DELETE_book_delete_id_for_id_valid(int arg1) throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/id/74");
+    System.out.println("Request delete api: http://localhost:8080/books/delete/id/74");
   }
 
   @When("^Delete book with id (\\d+)$")
@@ -669,7 +667,7 @@ public class ControllerCommandSteps extends BasicSteps {
     assertEquals("ngoa long", checkBook.getAuthor());
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> responseEntity =
-        restTemplate.exchange("http://localhost:8080/book/delete/id/74", HttpMethod.DELETE,
+        restTemplate.exchange("http://localhost:8080/books/delete/id/74", HttpMethod.DELETE,
             new HttpEntity<>(sampleBook), String.class, codeExpectStatus);
     assertEquals(codeExpectStatus, responseEntity.getStatusCodeValue());
     try {
@@ -683,7 +681,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request DELETE book/delete/id/-(\\d+) for id invad$")
   public void the_client_request_DELETE_book_delete_id_for_id_invad(int arg1) throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/id/-1");
+    System.out.println("Request delete api: http://localhost:8080/books/delete/id/-1");
   }
 
   @When("^Delete book with id invalid: -(\\d+)$")
@@ -703,7 +701,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/delete/id/-1", HttpMethod.DELETE,
+          restTemplate.exchange("http://localhost:8080/books/delete/id/-1", HttpMethod.DELETE,
               new HttpEntity<>(sampleBook), String.class, -1);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -714,7 +712,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request DELETE book/delete/id/(\\d+) for id not exist$")
   public void the_client_request_DELETE_book_delete_id_for_id_not_exist(int arg1) throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/id/999");
+    System.out.println("Request delete api: http://localhost:8080/books/delete/id/999");
   }
 
   @When("^Delete book with id not exist: (\\d+)$")
@@ -734,7 +732,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/delete/id/999", HttpMethod.DELETE,
+          restTemplate.exchange("http://localhost:8080/books/delete/id/999", HttpMethod.DELETE,
               new HttpEntity<>(sampleBook), String.class, 999);
       assertEquals(500, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -747,13 +745,13 @@ public class ControllerCommandSteps extends BasicSteps {
   public void the_client_request_DELETE_book_delete_code_b_for_code_valid(int arg1)
       throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/code/b0412");
+    System.out.println("Request delete api: http://localhost:8080/books/delete/code/b6789");
   }
 
   @When("^Delete book with code: \"([^\"]*)\"$")
   public void delete_book_with_code(String code) throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    code = "b0412";
+    code = "b6789";
     sampleBook.setCode(code);
   }
 
@@ -761,18 +759,18 @@ public class ControllerCommandSteps extends BasicSteps {
   public void the_response_return_code_and_the_book_with_code_not_exist_in_database(
       int codeExpectedStatus, String code) throws Throwable {
     codeExpectedStatus = 200;
-    code = "b0412";
+    code = "b6789";
     Book checkBook = iBookQueryService.findByCode(code);
     assertEquals("thuy hu", checkBook.getName());
     RestTemplate restTemplate = new RestTemplate();
     ResponseEntity<String> responseEntity =
-        restTemplate.exchange("http://localhost:8080/book/delete/code/b0412", HttpMethod.DELETE,
+        restTemplate.exchange("http://localhost:8080/books/delete/code/b6789", HttpMethod.DELETE,
             new HttpEntity<>(sampleBook), String.class, code);
     assertEquals(codeExpectedStatus, responseEntity.getStatusCodeValue());
     try {
       Book book = iBookQueryService.findByCode(code);
     } catch (BookNotFoundException e) {
-      thrown.expectMessage("Cannot find book with Code: b0412");
+      thrown.expectMessage("Cannot find book with Code: b6789");
     }
     // Write code here that turns the phrase above into concrete actions
   }
@@ -780,7 +778,7 @@ public class ControllerCommandSteps extends BasicSteps {
   @Given("^The client request DELETE book/delete/code/ for code invalid$")
   public void the_client_request_DELETE_book_delete_code_for_code_invalid() throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/code/");
+    System.out.println("Request delete api: http://localhost:8080/books/delete/code/");
   }
 
   @When("^Delete book with code is blank$")
@@ -796,7 +794,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/delete/code/%20%20", HttpMethod.DELETE,
+          restTemplate.exchange("http://localhost:8080/books/delete/code/%20%20", HttpMethod.DELETE,
               new HttpEntity<>(sampleBook), String.class, code);
       assertEquals(codeExpectedStatus, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {
@@ -810,7 +808,7 @@ public class ControllerCommandSteps extends BasicSteps {
   public void the_client_request_DELETE_book_delete_code_xxx_for_code_not_exists()
       throws Throwable {
     // Write code here that turns the phrase above into concrete actions
-    System.out.println("Request delete api: http://localhost:8080/book/delete/xxx");;
+    System.out.println("Request delete api: http://localhost:8080/books/delete/xxx");;
   }
 
 
@@ -827,7 +825,7 @@ public class ControllerCommandSteps extends BasicSteps {
     try {
       RestTemplate restTemplate = new RestTemplate();
       ResponseEntity<String> responseEntity =
-          restTemplate.exchange("http://localhost:8080/book/delete/code/xxx", HttpMethod.DELETE,
+          restTemplate.exchange("http://localhost:8080/books/delete/code/xxx", HttpMethod.DELETE,
               new HttpEntity<>(sampleBook), String.class, code);
       assertEquals(codeExpectedStatus, responseEntity.getStatusCodeValue());
     } catch (HttpServerErrorException e) {

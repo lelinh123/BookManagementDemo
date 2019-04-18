@@ -22,12 +22,12 @@ public class ControllerQuerySteps extends BasicSteps {
   @Rule
   public ExpectedException thrown = ExpectedException.none();
 
-  private final String BASIC_BOOK_REQUEST_URL = "http://localhost:8080/book/";
+  private final String BASIC_BOOK_REQUEST_URL = "http://localhost:8080/books/";
 
   @When("^The client request GET /book api$")
   public void the_client_request_GET_book_api() throws Throwable {
 
-    System.out.println("Request get api: http://localhost:8080/book/");
+    System.out.println("Request get api: http://localhost:8080/books/");
   }
 
   @Then("^The response return a lists of book record in database and status code (\\d+);$")
@@ -52,7 +52,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by id api$")
   public void the_client_request_GET_find_by_id_api() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/id/1");
+    System.out.println("Request get api: http://localhost:8080/books/id/1");
   }
 
   @Then("^The response return a  book record by id in database and status code (\\d+);$")
@@ -70,7 +70,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by code api$")
   public void the_client_request_GET_find_by_code_api() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/code/c007");
+    System.out.println("Request get api: http://localhost:8080/books/code/c007");
   }
 
   @Then("^The response return a  book record by code in database and status code (\\d+);$")
@@ -88,7 +88,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by name api$")
   public void the_client_request_GET_find_by_name_api() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/name/test");
+    System.out.println("Request get api: http://localhost:8080/books/name/test");
   }
 
   @Then("^The response return a list  book record by name in database and status code (\\d+);$")
@@ -107,7 +107,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by category api$")
   public void the_client_request_GET_find_by_category_api() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/category/novel");
+    System.out.println("Request get api: http://localhost:8080/books/category/novel");
   }
 
   @Then("^The response return a list  book record by category in database and status code (\\d+);$")
@@ -126,7 +126,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by author api$")
   public void the_client_request_GET_find_by_author_api() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/author/lhlinh");
+    System.out.println("Request get api: http://localhost:8080/books/author/lhlinh");
   }
 
   @Then("^The response return a list  book record by author in database and status code (\\d+);$")
@@ -145,7 +145,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by id less zero$")
   public void the_client_request_GET_find_by_id_less_zero() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/id/-1");
+    System.out.println("Request get api: http://localhost:8080/books/id/-1");
   }
 
   @Then("^The response return HttpStatuscode is (\\d+) and ValidationException;$")
@@ -204,7 +204,7 @@ public class ControllerQuerySteps extends BasicSteps {
 
   @When("^The client request GET find by category is blank$")
   public void the_client_request_GET_find_by_category_is_blank() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/category");
+    System.out.println("Request get api: http://localhost:8080/books/category");
   }
 
   @Then("^The response return HttpStatuscode is (\\d+) and ValidationException Category is blank;$")
@@ -218,12 +218,12 @@ public class ControllerQuerySteps extends BasicSteps {
     } catch (HttpServerErrorException e) {
       thrown.expectMessage("Category is blank");
 
-    }
+    } 
   }
 
   @When("^The client request GET find by author is blank$")
   public void the_client_request_GET_find_by_author_is_blank() throws Throwable {
-    System.out.println("Request get api: http://localhost:8080/book/author");
+    System.out.println("Request get api: http://localhost:8080/books/author"); 
   }
 
   @Then("^The response return HttpStatuscode is (\\d+) and ValidationException Author is blank;$")
